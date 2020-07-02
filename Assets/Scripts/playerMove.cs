@@ -7,7 +7,7 @@ public class playerMove : MonoBehaviour
     public float speed;
     float width;
     Collider coll;
-    public float lives = 3;
+    public event System.Action OnPlayerDeath;
 
     // Start is called before the first frame update
     void Start()
@@ -28,9 +28,10 @@ public class playerMove : MonoBehaviour
 
     private void OnCollisionEnter(Collision other) {
         if (other.transform.tag == "Obstacle") {
+            if (OnPlayerDeath != null) {
+                OnPlayerDeath();
+            }
             Destroy(gameObject);
-            lives--;
-            Debug.Log(lives);
         }
     }
 

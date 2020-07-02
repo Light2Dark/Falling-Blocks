@@ -8,9 +8,11 @@ public class obstacle : MonoBehaviour
     private float halfWindWidth, halfWindHeight;
     private float spawnTime = 2f;
     private GameObject newObstacle;
-    public float timeBtwnObstacles, destroyTimer, yOffset, easiness;
+    public float difficultyLevel, timeBtwnObstacles, yOffset, destroyTimer;
     public Vector2 directionSpawn;
-    float accumulatedTime = 0;
+    public Vector2 minMaxSecondsToSpawn, minMaxVelocity;
+    // float accumulatedTime = 0; public float easiness;
+
     Rigidbody rb;
 
     // Start is called before the first frame update
@@ -18,14 +20,12 @@ public class obstacle : MonoBehaviour
     {
         halfWindHeight = Camera.main.orthographicSize;
         halfWindWidth = halfWindHeight * Camera.main.aspect;
-
-        Invoke("CreateObstacle", spawnTime);
     }
 
     // Update is called once per frame
     void Update()
     {
-        float currentTime = Time.time - accumulatedTime;
+        /* float currentTime = Time.time - accumulatedTime;
         if (currentTime > easiness) {
             CreateObstacle();
             accumulatedTime += easiness;
@@ -34,7 +34,17 @@ public class obstacle : MonoBehaviour
             if (easiness > 0.4f) {
                 easiness -= 0.05f;
             }
-        }
+        } */
+        
+
+        
+        if (Time.timeSinceLevelLoad > spawnTime) {
+            timeBtwnObstacles = Mathf.Lerp(minMaxSecondsToSpawn.y, minMaxSecondsToSpawn.x, Difficulty.GetDifficultyRate(difficultyLevel));
+            spawnTime = Time.timeSinceLevelLoad + timeBtwnObstacles;
+
+            CreateObstacle();
+        } 
+        
     }
 
     void CreateObstacle() {
@@ -46,7 +56,9 @@ public class obstacle : MonoBehaviour
         newObstacle.transform.localScale = size;
         newObstacle.transform.parent = this.transform;
         rb = newObstacle.GetComponent<Rigidbody>();
-        rb.AddForce(new Vector3 (Random.Range(directionSpawn.x, directionSpawn.y), 0, 0), ForceMode.Impulse);
+        float yForce = Mathf.Lerp(minMaxVelocity.x, minMaxVelocity.y, Difficulty.GetDifficultyRate(difficultyLevel));
+
+        rb.AddForce(new Vector3 (Random.Range(directionSpawn.x, directionSpawn.y), -yForce, 0), ForceMode.Impulse);
 
         Destroy(newObstacle, destroyTimer);  
     }
