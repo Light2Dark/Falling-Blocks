@@ -36,8 +36,6 @@ public class obstacle : MonoBehaviour
             }
         } */
         
-
-        
         if (Time.timeSinceLevelLoad > spawnTime) {
             timeBtwnObstacles = Mathf.Lerp(minMaxSecondsToSpawn.y, minMaxSecondsToSpawn.x, Difficulty.GetDifficultyRate(difficultyLevel));
             spawnTime = Time.timeSinceLevelLoad + timeBtwnObstacles;
@@ -48,7 +46,7 @@ public class obstacle : MonoBehaviour
     }
 
     void CreateObstacle() {
-        Vector3 size = new Vector3(Random.Range(0.5f, 4f), Random.Range(0.2f, 6f), 2f);
+        Vector3 size = new Vector3(Random.Range(0.5f, 3f), Random.Range(0.2f, 5f), 2f);
         Vector3 position = new Vector3(Random.Range(-halfWindWidth, halfWindWidth), Random.Range(halfWindHeight, halfWindHeight + 0.2f) + yOffset, 0);
         Vector3 rotation = new Vector3 (0, 0, Random.Range(0,360));
         
