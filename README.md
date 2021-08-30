@@ -17,8 +17,8 @@ Tap the left side / right side of the screen to move the player. Avoid the block
 
 ## Design Examples
 
-img
-img
+![gamemenu](https://user-images.githubusercontent.com/19585239/131328198-4c8f116f-73d4-46f4-aa42-225d4ed846df.jpg)
+![game](https://user-images.githubusercontent.com/19585239/131328202-298d8174-294c-4cd3-a7d1-61163a4d18fa.jpg)
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
